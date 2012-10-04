@@ -1,0 +1,11 @@
+:local host "YOUR-HOST-HERE";
+:local user "YOUR-LOGIN-HERE";
+:local pass "YOUR-PASSWOD-HERE";
+:local ident [/system identity get name];
+:local localFilename "$ident.backup"
+:local remoteFilename "pending/$ident.backup"
+
+/system backup save name=$localFilename;
+/tool fetch mode=ftp upload=yes src-path=$localFilename dst-path=$remoteFilename address=$host user=$user password=$pass ascii=no;
+:log info "System was backed up and backup was pushed to FTP"
+
